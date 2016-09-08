@@ -1,0 +1,111 @@
+body{
+	margin: 0;
+	font: 12px "微软雅黑";
+}
+ul,dl,dd{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+img{
+	border: none;
+	vertical-align: -12px;
+}
+.ulPre{
+	width: 100%;
+	height: 40px;
+	background-color: #62ba7b;
+	border-bottom: 2px solid #146e1f;
+}
+.cList{
+	height: 32px;
+	padding-top: 8px;
+}
+.cList .cLi{
+	width: 119px;
+	height: 32px;
+	background-color: #d3eddb;
+	float: left;
+	border-right: 1px solid #9ed4a5;
+	text-align: center;
+	line-height: 32px;
+}
+.cList .poRe{
+	position: relative;
+}
+.cList .poAb{
+	width: 17px;
+	height: 7px;
+	position: absolute;
+	right: 11px;
+	top: -18px;
+}
+.cList .bgGreen{
+	background-color: #0a7716;
+	color: #fff;
+}
+.mailInfo{
+	width: 100%;
+	border-top: 1px solid #a2c7ab;
+	margin-top: 10px;
+}
+.cDl{
+	width: 100%;
+	height: 36px;
+	border-bottom: 1px dashed #d5d6d7;
+}
+.cDl .cDt{
+	width: 40px;
+	height: 36px;
+	float: left;
+}
+.cDl .cDt input{
+	margin: 10px;
+}
+.cDl .cDd1{
+	width: 161px;
+	height: 36px;
+	float: left;
+	margin-left: 13px;
+}
+.cDl .cDd1 span{
+	margin-left: 22px;
+}
+.cDl .cDd1 span:hover{
+	text-decoration: underline;
+}
+.cDl .cDd2{
+	height: 36px;
+	float: left;
+	margin-left: 37px;
+}
+.cDl .cDd2 span{
+	margin-left: 25px;
+}
+.cDl .cDd2 span:hover{
+	text-decoration: underline;
+}
+.cList .btn{
+	width: 7px;
+	height: 7px;
+	position: absolute;
+	right: 9px;
+	top: 4px;
+}
+.cList .newP{
+	width: 74px;
+	height: 27px;
+}
+.cList .newLi{
+	width: 111px;
+	height: 24px;
+	background-color: #d3eddb;
+	float: left;
+	border-right: 1px solid #9ed4a5;
+	line-height: 24px;
+	position: relative;
+	padding: 4px;
+}
+.cDl .fontB{
+	font-weight: bold;
+}

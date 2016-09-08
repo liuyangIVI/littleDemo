@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>文字搬运工</title>
+		<style>
+			body{
+				background: gray;
+			}
+			div{
+				float: left;
+			}
+			input{
+				width: 74px;
+				float: left;
+				margin-top: 100px;
+				border: 1px solid black;
+				margin-right: 1px;
+			}
+			p{
+				padding: 0;
+				margin: 0;
+				background-color: pink;
+			}
+			ul{
+				padding: 0;
+				margin: 0;
+				list-style: none;
+			}
+			.spanL{
+				margin-left: 20px;
+			}
+			.cBox,.cBox2{
+				width: 200px;
+				height: 200px;
+				border: 1px solid white;
+				background-color: black;
+				color: #fff;
+			}
+			.active{
+				background: rgba(255,255,255,.1);
+				color: rgba(255,255,255,.3);
+			}
+			.cPL{
+				width: 100px;
+				height: 20px;
+				border: 1px solid black;
+				position: absolute;
+				left: 50px;
+				top: 209px;
+			}
+			.cPR{
+				width: 100px;
+				height: 20px;
+				border: 1px solid black;
+				position: absolute;
+				left: 400px;
+				top: 209px;
+			}
+			.cUl{
+				width: 120px;
+				height: 20px;
+				position: absolute;
+				left: 222px;
+				top: 170px;
+			}
+			.cUl li{
+				width: 20px;
+				height: 20px;
+				border-radius: 10px;
+				background-color: #fff;
+				float: left;
+				margin-left: 8px;
+			}
+			.cUl .cRed{
+				background-color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="cBox" id="iBox">南梁大通年间，北魏兴兵南下，林燮携年方十七岁的独生爱子林殊率赤焰军七万将士出征，不料遭奸人陷害，以致刚刚经历浴血奋战、击退北魏大军的赤焰将士冤死于梅岭-摘自--《琅琊榜》</div>
+		<input type="button"  id="go" value="向右移动>"/>
+		<input type="button"  id="goL" value="<向左移动"/>
+		<div class="cBox2" id="iBox2"></div>
+		<p id="iPL" class="cPL">
+			<span class="spanL"></span>
+			<a>/</a>
+			<span></span>
+		</p>
+		<p id="iPR" class="cPR">
+			<span class="spanL"></span>
+			<a>/</a>
+			<span></span>
+		</p>
+		<ul class="cUl" id="iUl">
+			<li class="cRed"></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</body>
+	<script>
+		//获取元素
+		var iBox = document.getElementById('iBox');
+		var iBox2 = document.getElementById('iBox2');
+		var goBtn = document.getElementById('go');
+		var goLBtn = document.getElementById('goL');
+		var iStopGo = document.getElementById('iStopGo');
+		var ipL = document.getElementById('iPL');
+		var ipLSpans = ipL.getElementsByTagName('span');
+		var ipR = document.getElementById('iPR');
+		var ipRSpans = ipR.getElementsByTagName('span');
+		var iUl = document.getElementById('iUl');
+		var aLis = iUl.getElementsByTagName('li');
+		var str1 = '';
+		var strG = '';
+		var timer = null;
+		var timer2 = null;
+		var num = 0;
+		var num1 = 1;
+		var num0 = 1;
+		var isTrue = true;
+		//自定义显示当前的div中的字数
+		function reset(){
+			var str = iBox.innerHTML; 
+			var str1 = iBox2.innerHTML;
+			ipLSpans[0].innerHTML = str.length;
+			ipRSpans[0].innerHTML = str1.length;
+			ipLSpans[1].innerHTML = str.length;
+			ipRSpans[1].innerHTML = str.length;
+			change();
+		}
+		reset();
+		//定义函数，如果div的内容为空，则改变控制div按钮的样式
+		function change(){
+			var str = iBox.innerHTML; 
+			var str1 = iBox2.innerHTML;
+			if(str1.length <= 0){
+				goLBtn.onclick = '';
+				goLBtn.className = 'active';
+			}else if(num1>str.length){
+				clearInterval(timer2);
+			}
+		}
+		goBtn.onclick = rightGo;
+		//点击向右移动
+		function rightGo(){
+			if(isTrue){
+				goBtn.value = '暂停>';
+				//点击向右移动按钮时，关闭向左移动按钮的点击事件
+				goLBtn.onclick = '';
+				goLBtn.className = 'active';
+				clearInterval(timer);
+				clearInterval(timer2);
+				var no = 0;
+				num = 0;
+				num0 = 1;
+				num1 = 1;
+				var str = iBox.innerHTML;
+				timer = setInterval(function(){
+					//类似加载的小点点，for循环初始化
+					for(var i=0;i<aLis.length;i++){
+						aLis[i].className = '';
+					}
+					//给第一个li添加样式
+					aLis[no].className = 'cRed';
+					no++;
+					//当变量no大于li的长度时，强制吧变量no赋值为0
+					if(no>aLis.length-1){
+						no=0;
+					}
+					//截取str中第num0++个字符，拿str1存储
+					str1 = str.slice(num0++);
+					//把str1赋值给第一个div的innerHTML
+					iBox.innerHTML = str1;
+					//如果num1的值大于字符串的长度，停止定时器并高亮按钮goLBtn
+					if(num1>str.length){
+						clearInterval(timer);
+						//当执行完成后开启向左移动按钮的点击事件
+						goLBtn.onclick = LeftGo;
+						goLBtn.className = '';
+					}
+					//显示当前div中字符的个数以及总个数
+					ipLSpans[0].innerHTML = str1.length;
+					//如果str1的长度小于等于0时清空li的样式，并把按钮gobtn调成不可点击的灰色
+					if(str1.length <= 0){
+						goBtn.value = '向右移动>';
+						isTrue = true;
+						goBtn.onclick = '';
+						goBtn.className = 'active';
+						for(var i=0;i<aLis.length;i++){
+							aLis[i].className = '';
+						}
+					}
+				},50);
+				timer2 = setInterval(function(){
+					strG = str.slice(num,num1);
+					num++;
+					num1++;
+					iBox2.innerHTML += strG;
+					ipRSpans[0].innerHTML = iBox2.innerHTML.length;
+				},50);
+				isTrue = false;
+			}
+			else{
+				clearInterval(timer);
+				clearInterval(timer2);
+				goBtn.value = '向右移动>';
+				isTrue = true;
+			}
+		}
+		goLBtn.onclick = LeftGo;
+		//点击向左移动
+		function LeftGo(){
+			if(isTrue){
+				//点击向左移动按钮时，关闭向右移动按钮的点击事件
+				goLBtn.value = '<停止'
+				goBtn.onclick = '';
+				goBtn.className = 'active';
+				clearInterval(timer);
+				clearInterval(timer2);
+				var no = aLis.length-1;
+				num = 0;
+				num0 = 1;
+				num1 = 1;
+				var str = iBox2.innerHTML;
+				timer = setInterval(function(){
+					for(var i=0;i<aLis.length;i++){
+						aLis[i].className = '';
+					}
+					aLis[no].className = 'cRed';
+					no--;
+					if(no<0){
+						no = aLis.length-1;
+					}
+					str1 = str.slice(num0++);
+					iBox2.innerHTML = str1;
+					if(num0>str.length){
+						//当执行完成后开启向右移动按钮的点击事件
+						clearInterval(timer);
+						goBtn.onclick = rightGo;
+						goBtn.className = '';
+						goLBtn.value = '<向左移动';
+						isTrue = true;
+					}
+					ipRSpans[0].innerHTML = str1.length;
+					if(str1.length <= 0){
+						goLBtn.onclick = '';
+						goLBtn.className = 'active';
+						for(var i=0;i<aLis.length;i++){
+							aLis[i].className = '';
+						}
+					}
+				},50);
+				timer2 = setInterval(function(){
+					strG = str.slice(num,num1);
+					num++;
+					num1++;
+					iBox.innerHTML += strG;
+					if(num1>str.length){
+						clearInterval(timer2);
+					}
+					ipLSpans[0].innerHTML = iBox.innerHTML.length;
+				},50)
+				isTrue = false;
+			}
+			else{
+				clearInterval(timer);
+				clearInterval(timer2);
+				goLBtn.value = '<向左移动';
+				isTrue = true;
+			}
+		}
+	</script>
+</html>

@@ -1,0 +1,65 @@
+body{
+	margin: 0;
+	background-color: gainsboro;
+}
+ul{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+p{
+	padding: 0;
+	margin: 0;
+}
+img{
+	vertical-align: top;
+	border: none;
+}
+input{
+	padding: 0;
+	border: none;
+}
+.cBtnBox{
+	width: 300px;
+	height: 50px;
+	margin: 0 auto;
+}
+.cBtnBox input{
+	width: 100px;
+	height: 30px;
+	background-color: seagreen;
+	color:#fff;
+	margin-left: 25px;
+	margin-top: 10px;
+}
+.cUl{
+	width: 1208px;
+	height: 400px;
+	border: 1px solid black;
+	margin: 0 auto;
+}
+.cUl li{
+	width: 280px;
+	height: 180px;
+	background-color: #fff;
+	padding: 10px 10px;
+	float: left;
+	margin-right: 2px;
+	position: relative;
+}
+.cUl img{
+	width: 280px;
+	height: 150px;
+}
+.cUl p{
+	width: 280px;
+	height: 30px;
+	line-height: 30px;
+	background-color: gainsboro;
+	text-align: center;
+	color: mediumblue;
+	font-weight: bold;
+	position: absolute;
+	left: 10px;
+	bottom: 10px;
+}
